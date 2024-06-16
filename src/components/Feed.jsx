@@ -9,10 +9,11 @@ import '../index.css';
 const Feed = () => {
 
   const [selectedCategory, setSelectedCategory] = useState('New');
+  const [videos, setVideos] = useState([]);
 
   useEffect(() => {
     fetchFromAPI(`search?q=${selectedCategory}&part=snippet`).then((data) => {
-      console.log(data);
+      setVideos(data.items);
     });
   }, [selectedCategory]);
 
@@ -26,7 +27,7 @@ const Feed = () => {
         <Typography variant='h4' fontWeight='bold' mb={2} sx={{ color:'white'}}>
           {selectedCategory} <span style={{ color: '#F31503'}}>videos</span>
         </Typography>
-        <Videos videos={[]} />
+        <Videos videos={videos} />
       </Box>
     </Stack>
   )
